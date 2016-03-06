@@ -36,16 +36,6 @@ libm-sysdep_routines += e_exp-avx e_log-avx s_atan-avx \
 			mplog-avx mpa-avx slowexp-avx \
 			mpexp-avx
 
-CFLAGS-e_atan2-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-e_exp-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-e_log-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-mpa-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-mpexp-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-mplog-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-s_atan-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-s_sin-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-slowexp-avx.c = -msse2avx -DSSE2AVX
-CFLAGS-s_tan-avx.c = -msse2avx -DSSE2AVX
 endif
 
 ifeq ($(subdir),mathvec)
