@@ -59,20 +59,20 @@ int internal_function attribute_hidden
    copying memory, breaking the very code written to handle the
    unaligned cases.  */
 # if ! ELF_MACHINE_NO_REL
-auto inline void __attribute__((always_inline))
+static inline void __attribute__((always_inline))
 elf_machine_rel (struct link_map *map, const ElfW(Rel) *reloc,
 		 const ElfW(Sym) *sym, const struct r_found_version *version,
 		 void *const reloc_addr, int skip_ifunc);
-auto inline void __attribute__((always_inline))
+static inline void __attribute__((always_inline))
 elf_machine_rel_relative (ElfW(Addr) l_addr, const ElfW(Rel) *reloc,
 			  void *const reloc_addr);
 # endif
 # if ! ELF_MACHINE_NO_RELA
-auto inline void __attribute__((always_inline))
+static inline void __attribute__((always_inline))
 elf_machine_rela (struct link_map *map, const ElfW(Rela) *reloc,
 		  const ElfW(Sym) *sym, const struct r_found_version *version,
 		  void *const reloc_addr, int skip_ifunc);
-auto inline void __attribute__((always_inline))
+static inline void __attribute__((always_inline))
 elf_machine_rela_relative (ElfW(Addr) l_addr, const ElfW(Rela) *reloc,
 			   void *const reloc_addr);
 # endif
@@ -82,7 +82,7 @@ elf_machine_lazy_rel (struct link_map *map,
 		      ElfW(Addr) l_addr, const ElfW(Rel) *reloc,
 		      int skip_ifunc);
 # else
-auto inline void __attribute__((always_inline))
+static inline void __attribute__((always_inline))
 elf_machine_lazy_rel (struct link_map *map,
 		      ElfW(Addr) l_addr, const ElfW(Rela) *reloc,
 		      int skip_ifunc);
@@ -91,7 +91,9 @@ elf_machine_lazy_rel (struct link_map *map,
 
 #include <dl-machine.h>
 
+#ifndef _GET_DYNAMIC_INFO
 #include "get-dynamic-info.h"
+#endif
 
 #ifdef RESOLVE_MAP
 

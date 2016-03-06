@@ -25,7 +25,20 @@
 #include <sys/mman.h>
 #include <sys/param.h>
 #include <sys/types.h>
+#if ! ELF_MACHINE_NO_RELA
+/* This macro is used as a callback from the ELF_DYNAMIC_RELOCATE code.  */
+#define RESOLVE_MAP(ref, version, flags) (*ref = NULL, NULL)
+#define RESOLVE(ref, version, flags) (*ref = NULL, 0)
+#define RESOLVE_CONFLICT_FIND_MAP(map, r_offset) \
+do {									      \
+while ((resolve_conflict_map->l_map_end < (ElfW(Addr)) (r_offset))	      \
+       || (resolve_conflict_map->l_map_start > (ElfW(Addr)) (r_offset)))  \
+  resolve_conflict_map = resolve_conflict_map->l_next;		      \
+                                                                          \
+(map) = resolve_conflict_map;					      \
+} while (0)
 #include "dynamic-link.h"
+#endif
 
 void
 _dl_resolve_conflicts (struct link_map *l, ElfW(Rela) *conflict,
@@ -39,24 +52,13 @@ _dl_resolve_conflicts (struct link_map *l, ElfW(Rela) *conflict,
     /* Do the conflict relocation of the object and library GOT and other
        data.  */
 
-    /* This macro is used as a callback from the ELF_DYNAMIC_RELOCATE code.  */
-#define RESOLVE_MAP(ref, version, flags) (*ref = NULL, NULL)
-#define RESOLVE(ref, version, flags) (*ref = NULL, 0)
-#define RESOLVE_CONFLICT_FIND_MAP(map, r_offset) \
-  do {									      \
-    while ((resolve_conflict_map->l_map_end < (ElfW(Addr)) (r_offset))	      \
-	   || (resolve_conflict_map->l_map_start > (ElfW(Addr)) (r_offset)))  \
-      resolve_conflict_map = resolve_conflict_map->l_next;		      \
-									      \
-    (map) = resolve_conflict_map;					      \
-  } while (0)
 
     /* Prelinking makes no sense for anything but the main namespace.  */
     assert (l->l_ns == LM_ID_BASE);
     struct link_map *resolve_conflict_map __attribute__ ((__unused__))
       = GL(dl_ns)[LM_ID_BASE]._ns_loaded;
 
-#include "dynamic-link.h"
+//#include "dynamic-link.h"
 
     /* Override these, defined in dynamic-link.h.  */
 #undef CHECK_STATIC_TLS

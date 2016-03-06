@@ -19,11 +19,9 @@
 #include <assert.h>
 #include <libc-internal.h>
 
-#ifndef RESOLVE_MAP
+#define _GET_DYNAMIC_INFO
+
 static
-#else
-auto
-#endif
 inline void __attribute__ ((unused, always_inline))
 elf_get_dynamic_info (struct link_map *l, ElfW(Dyn) *temp)
 {

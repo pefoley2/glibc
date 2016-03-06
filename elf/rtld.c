@@ -332,6 +332,16 @@ _dl_start_final (void *arg, struct dl_start_final_info *info)
   return start_addr;
 }
 
+/* This #define produces dynamic linking inline functions for
+ bootstrap relocation instead of general-purpose relocation.
+ Since ld.so must not have any undefined symbols the result
+ is trivial: always the map of ld.so itself.  */
+#define RTLD_BOOTSTRAP
+# define bootstrap_map GL(dl_rtld_map)
+#define RESOLVE_MAP(sym, version, flags) (&bootstrap_map)
+#include "dynamic-link.h"
+
+
 static ElfW(Addr) __attribute_used__ internal_function
 _dl_start (void *arg)
 {
@@ -341,14 +351,6 @@ _dl_start (void *arg)
   struct dl_start_final_info info;
 # define bootstrap_map info.l
 #endif
-
-  /* This #define produces dynamic linking inline functions for
-     bootstrap relocation instead of general-purpose relocation.
-     Since ld.so must not have any undefined symbols the result
-     is trivial: always the map of ld.so itself.  */
-#define RTLD_BOOTSTRAP
-#define RESOLVE_MAP(sym, version, flags) (&bootstrap_map)
-#include "dynamic-link.h"
 
   if (HP_TIMING_INLINE && HP_SMALL_TIMING_AVAIL)
 #ifdef DONT_USE_BOOTSTRAP_MAP
@@ -730,6 +732,9 @@ static const char *preloadlist attribute_relro;
 /* Nonzero if information about versions has to be printed.  */
 static int version_info attribute_relro;
 
+#ifdef HAVE_EHDR_START
+  extern const ElfW(Ehdr) __ehdr_start __attribute__ ((visibility ("hidden")));
+#endif
 static void
 dl_main (const ElfW(Phdr) *phdr,
 	 ElfW(Word) phnum,
@@ -1226,8 +1231,7 @@ of this helper program; chances are you did not intend to run this program.\n\
      segment that also includes the phdrs.  If that's not available, we use
      the old method that assumes the beginning of the file is part of the
      lowest-addressed PT_LOAD segment.  */
-#ifdef HAVE_EHDR_START
-  extern const ElfW(Ehdr) __ehdr_start __attribute__ ((visibility ("hidden")));
+#ifndef HAVE_EHDR_START
   rtld_ehdr = &__ehdr_start;
 #else
   rtld_ehdr = (void *) GL(dl_rtld_map).l_map_start;
