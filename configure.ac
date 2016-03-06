@@ -446,17 +446,17 @@ if test x"$add_ons" != x; then
     case "$f" in
     crypt)
       AC_MSG_ERROR([
-*** It seems that you're using an old \`crypt' add-on.  crypt is now
+*** It seems that you're using an old `crypt' add-on.  crypt is now
 *** part of glibc and using the old add-on will not work with this
 *** release.  Start again with fresh sources and without the old
-*** \`crypt' add-on.])
+*** `crypt' add-on.])
     ;;
     localedata)
       AC_MSG_ERROR([
-*** It seems that you're using an old \`localedata' add-on.  localedata
+*** It seems that you're using an old `localedata' add-on.  localedata
 *** is now part of glibc and using the old add-on will not work with
 *** this release.  Start again with fresh sources and without the old
-*** \`localedata' add-on.])
+*** `localedata' add-on.])
     ;;
     esac
   done
@@ -479,7 +479,7 @@ if test x"$add_ons" != x; then
 	if test -d "$libc_add_on"; then
 	  libc_add_on="`pwd`/$libc_add_on"
 	else
-	  AC_MSG_ERROR(add-on directory \"$libc_add_on\" does not exist)
+	  AC_MSG_ERROR([add-on directory "$libc_add_on" does not exist])
 	fi
       }
       libc_add_on_srcdir=$srcdir/$libc_add_on
