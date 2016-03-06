@@ -256,7 +256,7 @@ elf_machine_plt_value (struct link_map *map, const ElfW(Rela) *reloc,
 /* Perform the relocation specified by RELOC and SYM (which is fully resolved).
    MAP is the object containing the reloc.  */
 
-auto inline void
+static inline void
 __attribute__ ((always_inline))
 elf_machine_rela (struct link_map *map, const ElfW(Rela) *reloc,
 		  const ElfW(Sym) *sym, const struct r_found_version *version,
@@ -500,7 +500,7 @@ elf_machine_rela (struct link_map *map, const ElfW(Rela) *reloc,
     }
 }
 
-auto inline void
+static inline void
 __attribute ((always_inline))
 elf_machine_rela_relative (ElfW(Addr) l_addr, const ElfW(Rela) *reloc,
 			   void *const reloc_addr_arg)
@@ -519,7 +519,7 @@ elf_machine_rela_relative (ElfW(Addr) l_addr, const ElfW(Rela) *reloc,
     }
 }
 
-auto inline void
+static inline void
 __attribute ((always_inline))
 elf_machine_lazy_rel (struct link_map *map,
 		      ElfW(Addr) l_addr, const ElfW(Rela) *reloc,
