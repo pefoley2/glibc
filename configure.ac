@@ -945,7 +945,7 @@ AC_CHECK_PROG_VER(AWK, gawk, --version,
 
 AC_CACHE_CHECK([if $CC is sufficient to build libc], libc_cv_compiler_ok, [
 AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
-#if !defined __GNUC__ || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7)
+#if (!defined __GNUC__ || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7)) && (!defined __clang__ || __clang_major__ < 3 || (__clang_major__ == 3 && __clang_minor__ < 7))
 #error insufficient compiler
 #endif]])],[libc_cv_compiler_ok=yes],[libc_cv_compiler_ok=no])])
 AS_IF([test $libc_cv_compiler_ok != yes],
@@ -1437,7 +1437,7 @@ else
 fi
 rm -f conftest* ])
 if test "$libc_cv_gcc_builtin_redirection" = no; then
-  AC_MSG_ERROR([support for the symbol redirection needed])
+  AC_MSG_ERROR([support for symbol redirection needed])
 fi
 
 dnl Determine how to disable generation of FMA instructions.
