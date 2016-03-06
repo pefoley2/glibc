@@ -1,6 +1,6 @@
 dnl Process this file with autoconf to produce a configure script.
 dnl Note we do not use AC_PREREQ here!  See aclocal.m4 for what we use instead.
-AC_INIT([GNU C Library], [(see version.h)], [http://sourceware.org/bugzilla/], [glibc])
+AC_INIT([GNU C Library],[(see version.h)],[http://sourceware.org/bugzilla/],[glibc])
 AC_CONFIG_SRCDIR([include/features.h])
 AC_CONFIG_HEADERS([config.h])
 AC_CONFIG_AUX_DIR([scripts])
@@ -89,8 +89,7 @@ config_vars=
 
 # Check for a --with-gd argument and set libgd-LDFLAGS in config.make.
 AC_ARG_WITH([gd],
-	    AC_HELP_STRING([--with-gd=DIR],
-			   [find libgd include dir and library with prefix DIR]),
+	    AS_HELP_STRING([--with-gd=DIR],[find libgd include dir and library with prefix DIR]),
 	    [dnl
 case "$with_gd" in
 yes|''|no) ;;
@@ -99,8 +98,7 @@ yes|''|no) ;;
 esac
 ])
 AC_ARG_WITH([gd-include],
-	    AC_HELP_STRING([--with-gd-include=DIR],
-			   [find libgd include files in DIR]),
+	    AS_HELP_STRING([--with-gd-include=DIR],[find libgd include files in DIR]),
 	    [dnl
 case "$with_gd_include" in
 ''|no) ;;
@@ -108,8 +106,7 @@ case "$with_gd_include" in
 esac
 ])
 AC_ARG_WITH([gd-lib],
-	    AC_HELP_STRING([--with-gd-lib=DIR],
-			   [find libgd library files in DIR]),
+	    AS_HELP_STRING([--with-gd-lib=DIR],[find libgd library files in DIR]),
 	    [dnl
 case "$with_gd_lib" in
 ''|no) ;;
@@ -128,25 +125,21 @@ fi
 
 dnl Arguments to specify presence of other packages/features.
 AC_ARG_WITH([fp],
-	    AC_HELP_STRING([--with-fp],
-			   [if using floating-point hardware @<:@default=yes@:>@]),
+	    AS_HELP_STRING([--with-fp],[if using floating-point hardware @<:@default=yes@:>@]),
 	    [with_fp=$withval],
 	    [with_fp=yes])
 AC_SUBST(with_fp)
 AC_ARG_WITH([binutils],
-	    AC_HELP_STRING([--with-binutils=PATH],
-			   [specify location of binutils (as and ld)]),
+	    AS_HELP_STRING([--with-binutils=PATH],[specify location of binutils (as and ld)]),
 	    [path_binutils=$withval],
 	    [path_binutils=''])
 AC_ARG_WITH([selinux],
-	    AC_HELP_STRING([--with-selinux],
-			   [if building with SELinux support]),
+	    AS_HELP_STRING([--with-selinux],[if building with SELinux support]),
 	    [with_selinux=$withval],
 	    [with_selinux=auto])
 
 AC_ARG_WITH([headers],
-	    AC_HELP_STRING([--with-headers=PATH],
-			   [location of system headers to use
+	    AS_HELP_STRING([--with-headers=PATH],[location of system headers to use
 			    (for example /usr/src/linux/include)
 			    @<:@default=compiler default@:>@]),
 	    [sysheaders=$withval],
@@ -155,44 +148,37 @@ AC_SUBST(sysheaders)
 
 AC_SUBST(use_default_link)
 AC_ARG_WITH([default-link],
-	    AC_HELP_STRING([--with-default-link],
-			   [do not use explicit linker scripts]),
+	    AS_HELP_STRING([--with-default-link],[do not use explicit linker scripts]),
 	    [use_default_link=$withval],
 	    [use_default_link=default])
 
 AC_ARG_ENABLE([sanity-checks],
-	      AC_HELP_STRING([--disable-sanity-checks],
-			     [really do not use threads (should not be used except in special situations) @<:@default=yes@:>@]),
+	      AS_HELP_STRING([--disable-sanity-checks],[really do not use threads (should not be used except in special situations) @<:@default=yes@:>@]),
 	      [enable_sanity=$enableval],
 	      [enable_sanity=yes])
 
 AC_ARG_ENABLE([shared],
-	      AC_HELP_STRING([--enable-shared],
-			     [build shared library @<:@default=yes if GNU ld@:>@]),
+	      AS_HELP_STRING([--enable-shared],[build shared library @<:@default=yes if GNU ld@:>@]),
 	      [shared=$enableval],
 	      [shared=yes])
 AC_ARG_ENABLE([profile],
-	      AC_HELP_STRING([--enable-profile],
-			     [build profiled library @<:@default=no@:>@]),
+	      AS_HELP_STRING([--enable-profile],[build profiled library @<:@default=no@:>@]),
 	      [profile=$enableval],
 	      [profile=no])
 AC_ARG_ENABLE([timezone-tools],
-	      AC_HELP_STRING([--disable-timezone-tools],
-			     [do not install timezone tools @<:@default=install@:>@]),
+	      AS_HELP_STRING([--disable-timezone-tools],[do not install timezone tools @<:@default=install@:>@]),
 	      [enable_timezone_tools=$enableval],
 	      [enable_timezone_tools=yes])
 AC_SUBST(enable_timezone_tools)
 
 AC_ARG_ENABLE([hardcoded-path-in-tests],
-	      AC_HELP_STRING([--enable-hardcoded-path-in-tests],
-			     [hardcode newly built glibc path in tests @<:@default=no@:>@]),
+	      AS_HELP_STRING([--enable-hardcoded-path-in-tests],[hardcode newly built glibc path in tests @<:@default=no@:>@]),
 	      [hardcoded_path_in_tests=$enableval],
 	      [hardcoded_path_in_tests=no])
 AC_SUBST(hardcoded_path_in_tests)
 
 AC_ARG_ENABLE([stackguard-randomization],
-	      AC_HELP_STRING([--enable-stackguard-randomization],
-			     [initialize __stack_chk_guard canary with a random number at program start]),
+	      AS_HELP_STRING([--enable-stackguard-randomization],[initialize __stack_chk_guard canary with a random number at program start]),
 	      [enable_stackguard_randomize=$enableval],
 	      [enable_stackguard_randomize=no])
 if test "$enable_stackguard_randomize" = yes; then
@@ -200,8 +186,7 @@ if test "$enable_stackguard_randomize" = yes; then
 fi
 
 AC_ARG_ENABLE([lock-elision],
-	      AC_HELP_STRING([--enable-lock-elision[=yes/no]],
-			     [Enable lock elision for pthread mutexes by default]),
+	      AS_HELP_STRING([--enable-lock-elision[=yes/no]],[Enable lock elision for pthread mutexes by default]),
 	      [enable_lock_elision=$enableval],
 	      [enable_lock_elision=no])
 AC_SUBST(enable_lock_elision)
@@ -211,14 +196,12 @@ fi
 
 dnl Generic infrastructure for drop-in additions to libc.
 AC_ARG_ENABLE([add-ons],
-	      AC_HELP_STRING([--enable-add-ons@<:@=DIRS...@:>@],
-			     [configure and build add-ons in DIR1,DIR2,...
+	      AS_HELP_STRING([--enable-add-ons@<:@=DIRS...@:>@],[configure and build add-ons in DIR1,DIR2,...
 			      search for add-ons if no parameter given]),
 			     , [enable_add_ons=yes])
 
 AC_ARG_ENABLE([hidden-plt],
-	      AC_HELP_STRING([--disable-hidden-plt],
-			     [do not hide internal function calls to avoid PLT]),
+	      AS_HELP_STRING([--disable-hidden-plt],[do not hide internal function calls to avoid PLT]),
 	      [hidden=$enableval],
 	      [hidden=yes])
 if test "x$hidden" = xno; then
@@ -226,8 +209,7 @@ if test "x$hidden" = xno; then
 fi
 
 AC_ARG_ENABLE([bind-now],
-	      AC_HELP_STRING([--enable-bind-now],
-			     [disable lazy relocations in DSOs]),
+	      AS_HELP_STRING([--enable-bind-now],[disable lazy relocations in DSOs]),
 	      [bindnow=$enableval],
 	      [bindnow=no])
 AC_SUBST(bindnow)
@@ -235,8 +217,7 @@ AC_SUBST(bindnow)
 dnl On some platforms we cannot use dynamic loading.  We must provide
 dnl static NSS modules.
 AC_ARG_ENABLE([static-nss],
-	      AC_HELP_STRING([--enable-static-nss],
-			     [build static NSS modules @<:@default=no@:>@]),
+	      AS_HELP_STRING([--enable-static-nss],[build static NSS modules @<:@default=no@:>@]),
 	      [static_nss=$enableval],
 	      [static_nss=no])
 dnl Enable static NSS also if we build no shared objects.
@@ -246,23 +227,20 @@ if test x"$static_nss" = xyes || test x"$shared" = xno; then
 fi
 
 AC_ARG_ENABLE([force-install],
-	      AC_HELP_STRING([--disable-force-install],
-			     [don't force installation of files from this package, even if they are older than the installed files]),
+	      AS_HELP_STRING([--disable-force-install],[don't force installation of files from this package, even if they are older than the installed files]),
 	      [force_install=$enableval],
 	      [force_install=yes])
 AC_SUBST(force_install)
 
 AC_ARG_ENABLE([maintainer-mode],
-	      AC_HELP_STRING([--enable-maintainer-mode],
-			     [enable make rules and dependencies not useful (and sometimes confusing) to the casual installer]),
+	      AS_HELP_STRING([--enable-maintainer-mode],[enable make rules and dependencies not useful (and sometimes confusing) to the casual installer]),
 	      [maintainer=$enableval],
 	      [maintainer=no])
 
 dnl On some platforms we allow dropping compatibility with all kernel
 dnl versions.
 AC_ARG_ENABLE([kernel],
-	      AC_HELP_STRING([--enable-kernel=VERSION],
-			     [compile for compatibility with kernel not older than VERSION]),
+	      AS_HELP_STRING([--enable-kernel=VERSION],[compile for compatibility with kernel not older than VERSION]),
 	      [minimum_kernel=$enableval],
 	      [])
 dnl Prevent unreasonable values.
@@ -279,28 +257,24 @@ dnl For the development we sometimes want gcc to issue even more warnings.
 dnl This is not the default since many of the extra warnings are not
 dnl appropriate.
 AC_ARG_ENABLE([all-warnings],
-	      AC_HELP_STRING([--enable-all-warnings],
-			     [enable all useful warnings gcc can issue]),
+	      AS_HELP_STRING([--enable-all-warnings],[enable all useful warnings gcc can issue]),
 	      [all_warnings=$enableval],
 	      [])
 AC_SUBST(all_warnings)
 
 AC_ARG_ENABLE([werror],
-	      AC_HELP_STRING([--disable-werror],
-			     [do not build with -Werror]),
+	      AS_HELP_STRING([--disable-werror],[do not build with -Werror]),
 	      [enable_werror=$enableval],
 	      [enable_werror=yes])
 AC_SUBST(enable_werror)
 
 AC_ARG_ENABLE([multi-arch],
-	      AC_HELP_STRING([--enable-multi-arch],
-			     [enable single DSO with optimizations for multiple architectures]),
+	      AS_HELP_STRING([--enable-multi-arch],[enable single DSO with optimizations for multiple architectures]),
 	      [multi_arch=$enableval],
 	      [multi_arch=default])
 
 AC_ARG_ENABLE([nss-crypt],
-	      AC_HELP_STRING([--enable-nss-crypt],
-			     [enable libcrypt to use nss]),
+	      AS_HELP_STRING([--enable-nss-crypt],[enable libcrypt to use nss]),
 	      [nss_crypt=$enableval],
 	      [nss_crypt=no])
 if test x$nss_crypt = xyes; then
@@ -335,8 +309,7 @@ AC_SUBST(libc_cv_nss_crypt)
 
 
 AC_ARG_ENABLE([obsolete-rpc],
-              AC_HELP_STRING([--enable-obsolete-rpc],
-                             [build and install the obsolete RPC code for link-time usage]),
+              AS_HELP_STRING([--enable-obsolete-rpc],[build and install the obsolete RPC code for link-time usage]),
               [link_obsolete_rpc=$enableval],
               [link_obsolete_rpc=no])
 AC_SUBST(link_obsolete_rpc)
@@ -354,12 +327,12 @@ if test "x$systemtap" != xno; then
   AC_CACHE_CHECK([for systemtap static probe support], libc_cv_sdt, [dnl
   old_CFLAGS="$CFLAGS"
   CFLAGS="-std=gnu11 $CFLAGS"
-  AC_COMPILE_IFELSE([AC_LANG_SOURCE([[#include <sys/sdt.h>
+  AC_COMPILE_IFELSE([AC_LANG_SOURCE([#include <sys/sdt.h>
 void foo (int i, void *p)
 {
   asm ("" STAP_PROBE_ASM (foo, bar, STAP_PROBE_ASM_TEMPLATE (2)) ""
        :: STAP_PROBE_ASM_OPERANDS (2, i, p));
-}]])], [libc_cv_sdt=yes], [libc_cv_sdt=no])
+}])], [libc_cv_sdt=yes], [libc_cv_sdt=no])
   CFLAGS="$old_CFLAGS"])
   if test $libc_cv_sdt = yes; then
     AC_DEFINE([USE_STAP_PROBE])
@@ -949,7 +922,7 @@ AC_CHECK_PROG_VER(LD, $LD, --version,
 		  LD=: critic_missing="$critic_missing ld")
 
 # These programs are version sensitive.
-AC_CHECK_TOOL_PREFIX
+
 AC_CHECK_PROG_VER(MAKE, gnumake gmake make, --version,
   [GNU Make[^0-9]*\([0-9][0-9.]*\)],
   [3.79* | 3.[89]* | [4-9].* | [1-9][0-9]*], critic_missing="$critic_missing make")
@@ -971,12 +944,10 @@ AC_CHECK_PROG_VER(AWK, gawk, --version,
   [3.1.[2-9]*|3.[2-9]*|[4-9]*], critic_missing="$critic_missing gawk")
 
 AC_CACHE_CHECK([if $CC is sufficient to build libc], libc_cv_compiler_ok, [
-AC_TRY_COMPILE([], [
+AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
 #if !defined __GNUC__ || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7)
 #error insufficient compiler
-#endif],
-	       [libc_cv_compiler_ok=yes],
-	       [libc_cv_compiler_ok=no])])
+#endif]])],[libc_cv_compiler_ok=yes],[libc_cv_compiler_ok=no])])
 AS_IF([test $libc_cv_compiler_ok != yes],
       [critic_missing="$critic_missing compiler"])
 
@@ -1520,7 +1491,7 @@ if test "$with_gd" != "no"; then
   LDFLAGS="$LDFLAGS $libgd_ldflags"
   old_LIBS="$LIBS"
   LIBS="$LIBS -lgd -lpng -lz -lm"
-  AC_TRY_LINK([#include <gd.h>], [gdImagePng (0, 0)], LIBGD=yes, LIBGD=no)
+  AC_LINK_IFELSE([AC_LANG_PROGRAM([#include <gd.h>], [gdImagePng (0, 0)])],[LIBGD=yes],[LIBGD=no])
   CFLAGS="$old_CFLAGS"
   LDFLAGS="$old_LDFLAGS"
   LIBS="$old_LIBS"
@@ -1569,12 +1540,10 @@ dnl Check for silly hacked compilers predefining _FORTIFY_SOURCE.
 dnl Since we are building the implementations of the fortified functions here,
 dnl having the macro defined interacts very badly.
 AC_CACHE_CHECK([for _FORTIFY_SOURCE predefine], libc_cv_predef_fortify_source,
-[AC_TRY_COMPILE([], [
+[AC_COMPILE_IFELSE([AC_LANG_SOURCE([[
 #ifdef _FORTIFY_SOURCE
 # error bogon
-#endif],
-		[libc_cv_predef_fortify_source=no],
-		[libc_cv_predef_fortify_source=yes])])
+#endif]])],[libc_cv_predef_fortify_source=no],[libc_cv_predef_fortify_source=yes])])
 if test $libc_cv_predef_fortify_source = yes; then
   CPPUNDEFS="${CPPUNDEFS:+$CPPUNDEFS }-U_FORTIFY_SOURCE"
 fi
@@ -1591,8 +1560,7 @@ dnl ever really want to make that work, it should be enabled explicitly
 dnl in the libc build, not inherited from implicit compiler settings.
 AC_CACHE_CHECK([whether $CC implicitly enables -fstack-protector],
 	       libc_cv_predef_stack_protector, [
-AC_TRY_COMPILE([extern void foobar (char *);],
-	       [char large_array[2048]; foobar (large_array);], [
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([extern void foobar (char *);], [[char large_array[2048]; foobar (large_array);]])],[
 libc_undefs=`$NM -u conftest.o |
   LC_ALL=C $AWK '$1 == "U" { print $2 | "sort -u"; next } { exit(1) }' \
     2>&AS_MESSAGE_LOG_FD` || {
@@ -1611,8 +1579,7 @@ foobar) libc_cv_predef_stack_protector=no ;;
 '__stack_chk_fail
 foobar') libc_cv_predef_stack_protector=yes ;;
 *) AC_MSG_ERROR([unexpected symbols in test: $libc_undefs]) ;;
-esac],
-	       [AC_MSG_ERROR([test compilation failed])])
+esac],[AC_MSG_ERROR([test compilation failed])])
 ])
 libc_extra_cflags=
 if test $libc_cv_predef_stack_protector = yes; then
@@ -1657,7 +1624,7 @@ fi
 AC_CACHE_CHECK(for __builtin_trap with no external dependencies,
 	       libc_cv_builtin_trap, [dnl
 libc_cv_builtin_trap=no
-AC_TRY_COMPILE([], [__builtin_trap ()], [
+AC_COMPILE_IFELSE([AC_LANG_PROGRAM([],[__builtin_trap ()])],[
 libc_undefs=`$NM -u conftest.o |
   LC_ALL=C $AWK '$1 == "U" { print $2 | "sort -u"; next } { exit(1) }' \
     2>&AS_MESSAGE_LOG_FD` || {
@@ -1666,7 +1633,7 @@ libc_undefs=`$NM -u conftest.o |
 echo >&AS_MESSAGE_LOG_FD "libc_undefs='$libc_undefs'"
 if test -z "$libc_undefs"; then
   libc_cv_builtin_trap=yes
-fi])])
+fi],[])])
 if test $libc_cv_builtin_trap = yes; then
   AC_DEFINE([HAVE_BUILTIN_TRAP])
 fi
@@ -1813,9 +1780,9 @@ AC_SUBST(VERSION)
 AC_SUBST(RELEASE)
 
 AC_CONFIG_FILES([config.make Makefile])
-AC_CONFIG_COMMANDS([default],[[
+AC_CONFIG_COMMANDS([default],[
 case $CONFIG_FILES in *config.make*)
 echo "$config_vars" >> config.make;;
 esac
-test -d bits || mkdir bits]],[[config_vars='$config_vars']])
+test -d bits || mkdir bits],[config_vars='$config_vars'])
 AC_OUTPUT

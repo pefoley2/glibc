@@ -4826,16 +4826,9 @@ else
 cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-int
-main ()
-{
-
 #if !defined __GNUC__ || __GNUC__ < 4 || (__GNUC__ == 4 && __GNUC_MINOR__ < 7)
 #error insufficient compiler
 #endif
-  ;
-  return 0;
-}
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"; then :
   libc_cv_compiler_ok=yes
@@ -6198,16 +6191,9 @@ else
   cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
-int
-main ()
-{
-
 #ifdef _FORTIFY_SOURCE
 # error bogon
 #endif
-  ;
-  return 0;
-}
 _ACEOF
 if ac_fn_c_try_compile "$LINENO"; then :
   libc_cv_predef_fortify_source=no
