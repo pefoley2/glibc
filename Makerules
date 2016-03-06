@@ -568,7 +568,7 @@ $(common-objpfx)shlib.lds: $(common-objpfx)config.make $(..)Makerules
 common-generated += shlib.lds
 
 shlib-lds = $(common-objpfx)shlib.lds
-shlib-lds-flags = -T $(shlib-lds)
+shlib-lds-flags = -Wl,-T -Wl,$(shlib-lds)
 endif
 
 define build-shlib
@@ -617,7 +617,7 @@ LDFLAGS-c.so = -nostdlib -nostartfiles
 # But we still want to link libc.so against $(libc.so-gnulib).
 LDLIBS-c.so += $(libc.so-gnulib)
 # Give libc.so an entry point and make it directly runnable itself.
-LDFLAGS-c.so += -e __libc_main
+LDFLAGS-c.so += -Wl,-e -Wl,__libc_main
 # If lazy relocation is disabled add the -z now flag.
 ifeq ($(bind-now),yes)
 LDFLAGS-c.so += -Wl,-z,now
@@ -628,7 +628,7 @@ endif
 # from being allocated in libc.so, which introduces evil dependencies
 # between libc.so and ld.so, which can make it impossible to upgrade.
 $(common-objpfx)libc_pic.os: $(common-objpfx)libc_pic.a
-	$(LINK.o) -nostdlib -nostartfiles -r -o $@ \
+	$(LINK.o) -nostdlib -nostartfiles -Wl,-r -o $@ \
 	$(LDFLAGS-c_pic.os) -Wl,-d $(whole-archive) $^ -o $@
 
 ifeq (,$(strip $(shlib-lds-flags)))

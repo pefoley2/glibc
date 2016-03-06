@@ -83,7 +83,7 @@ include ../Rules
 subdir_lib: $(extra-objs:%=$(objpfx)%)
 
 define link-relocatable
-$(CC) -nostdlib -nostartfiles -r -o $@ $^
+$(CC) -nostdlib -nostartfiles -Wl,-r -o $@ $^
 endef
 
 ifndef start-installed-name-rule
