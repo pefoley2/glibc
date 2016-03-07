@@ -144,7 +144,7 @@ _dl_nothread_init_static_tls (struct link_map *map)
 
 /* This macro is used as a callback from the ELF_DYNAMIC_RELOCATE code.  */
 struct link_map *l;
-struct r_scope_elem *scope[];
+struct r_scope_elem **scope;
 const char* strtab;
 #define RESOLVE_MAP(ref, version, r_type) \
 (ELFW(ST_BIND) ((*ref)->st_info) != STB_LOCAL			      \
@@ -255,7 +255,7 @@ _dl_relocate_object (struct link_map *l, struct r_scope_elem *scope[],
     /* Do the actual relocation of the object's GOT and other data.  */
 
     /* String table object symbols.  */
-    const char *strtab = (const void *) D_PTR (l, l_info[DT_STRTAB]);
+    //const char *strtab = (const void *) D_PTR (l, l_info[DT_STRTAB]);
 
 
     ELF_DYNAMIC_RELOCATE (l, lazy, consider_profiling, skip_ifunc);

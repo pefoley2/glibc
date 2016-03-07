@@ -25,6 +25,7 @@
 #include <sys/mman.h>
 #include <sys/param.h>
 #include <sys/types.h>
+#include "dynamic-link.h"
 #if ! ELF_MACHINE_NO_RELA
 /* This macro is used as a callback from the ELF_DYNAMIC_RELOCATE code.  */
 #define RESOLVE_MAP(ref, version, flags) (*ref = NULL, NULL)

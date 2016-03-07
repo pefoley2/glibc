@@ -3013,11 +3013,11 @@ parse_bracket_exp (re_string_t *regexp, re_dfa_t *dfa, re_token_t *token,
 {
 #ifdef _LIBC
   const unsigned char *collseqmb;
-  const char *collseqwc;
+  const char *collseqwc = NULL;
   uint32_t nrules;
-  int32_t table_size;
-  const int32_t *symb_table;
-  const unsigned char *extra;
+  int32_t table_size = 0;
+  const int32_t *symb_table = NULL;
+  const unsigned char *extra = NULL;
 #endif
 
   re_token_t br_token;
